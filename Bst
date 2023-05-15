@@ -1,0 +1,192 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *rlink;
+struct node *llink;
+};
+struct node *root=NULL,*temp,*parent,*ptr;
+int key,flag;
+int search()
+{
+	temp=root;
+	flag=0;
+	while(flag!=1 && temp!=NULL)
+	{
+		if (temp->data==key)
+		flag=1;
+		if(key<temp->data)
+		{
+		parent=temp;
+		temp=temp->llink;
+	}
+		else if(key>temp->data)
+		{
+		parent=temp;
+		temp=temp->rlink;
+		}
+		}
+	return flag;
+}
+void insertion()
+{
+int k=0;
+printf("Enter number");
+scanf("%d",&key);
+struct node* newnode=(struct node*)malloc(sizeof(struct node));
+newnode->data=key;
+if(root==NULL)
+{
+	root=newnode;
+	}
+else
+{	
+	int c=search();
+	if(k!=1)
+	{
+		temp=root;
+		while(k!=1&temp!=NULL)
+		{
+			if(key<temp->data)
+			{
+				parent=temp;
+				temp=temp->llink;
+			}
+			else if(key>temp->data)
+			{
+				parent=temp;
+				temp=temp->rlink;
+			}
+		}
+		if(key<parent->data)
+		{
+			parent->llink=newnode;
+		}
+		else
+		{
+			parent->rlink=newnode;
+		}
+}
+else 
+printf("Element already inserted");
+}
+}
+void inorder(struct node *ptr)
+{
+if(ptr!=NULL)
+{
+	inorder(ptr->llink);
+	printf("%d->\t",ptr->data);
+	inorder(ptr->rlink);
+	}
+}
+void preorder(struct node *ptr)
+{
+if(ptr!=NULL)
+{
+	printf("%d->\t",ptr->data);
+	preorder(ptr->llink);
+	preorder(ptr->rlink);
+	}
+}
+void postorder(struct node *ptr)
+{
+if(ptr!=NULL)
+{
+	
+	postorder(ptr->llink);
+	postorder(ptr->rlink);
+	printf("%d->\t",ptr->data);
+	}
+}
+int findMinimum(struct node* ptr)  
+{  
+struct node* parent1;
+    while(ptr->llink != NULL) {
+	parent1=ptr;  
+        ptr = ptr->llink;  
+    }  
+    return ptr->data;
+    parent1->llink=NULL;  
+}  
+void deletion()
+{
+printf("Enter element to delete");
+scanf("%d",&key);
+temp=root;
+int m=search();
+	if(m==0)
+	{
+	printf("Element not found");
+	}
+	else
+	{
+		if(temp->rlink==NULL&&temp->llink==NULL)
+		{
+			if(key<parent->data)
+				parent->llink=NULL;
+			else
+				parent->rlink=NULL;
+		}
+		else if((temp->rlink==NULL&&temp->llink!=NULL)||(temp->llink==NULL&&temp->rlink!=NULL))
+		{
+			if(parent->data<key)
+			{	
+				if(temp->llink==NULL)
+					parent->rlink=temp->rlink;
+				else if (temp->rlink==NULL)
+					parent->rlink=temp->llink;
+			}
+		else
+		{
+			if(temp->llink==NULL)
+				parent->llink=temp->rlink;
+			else if (temp->rlink==NULL)
+				parent->llink=temp->llink;
+	}
+}
+		else
+		{
+        int rep = findMinimum(temp->rlink);  
+       temp->data=rep;
+	   
+    }  
+	}
+	}
+	
+	
+	
+void main()
+{
+int c=1;
+while(c!=0)
+{
+	printf("ENTER 1:Insertion 2:Search 3:inorder 4:preorder 5:postorder 6:delete\n0 to exit\n ");
+	scanf("%d",&c);
+	if(c==1)
+	insertion();
+	if(c==2)
+	{
+	printf("Enter number");
+	scanf("%d",&key);
+	int k=search();
+	if(k==1)
+	printf("Element found\n");
+	else
+	printf("element not found\n");
+	}
+	if(c==3)
+	inorder(root);
+	if(c==4)
+	preorder(root);
+	if(c==5)
+	postorder(root);
+	if(c==6)
+	deletion();
+	}
+	
+}
+
+
+
